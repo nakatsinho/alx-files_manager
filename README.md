@@ -101,7 +101,7 @@ Inside the folder `utils`, create a file `redis.js` that contains the class 
 After the class definition, create and export an instance of `RedisClient` called `redisClient`.
 
 ```
-bob@dylan:~$ cat main.js
+dell-latitude@nakatsinho:~$ cat main.js
 import redisClient from './utils/redis';
 
 (async () => {
@@ -115,12 +115,12 @@ import redisClient from './utils/redis';
     }, 1000*10)
 })();
 
-bob@dylan:~$ npm run dev main.js
+dell-latitude@nakatsinho:~$ npm run dev main.js
 true
 null
 12
 null
-bob@dylan:~$
+dell-latitude@nakatsinho:~$
 
 ```
 
@@ -150,7 +150,7 @@ Inside the folder `utils`, create a file `db.js` that contains the class `DB
 After the class definition, create and export an instance of `DBClient` called `dbClient`.
 
 ```
-bob@dylan:~$ cat main.js
+dell-latitude@nakatsinho:~$ cat main.js
 import dbClient from './utils/db';
 
 const waitConnection = () => {
@@ -182,12 +182,12 @@ const waitConnection = () => {
     console.log(await dbClient.nbFiles());
 })();
 
-bob@dylan:~$ npm run dev main.js
+dell-latitude@nakatsinho:~$ npm run dev main.js
 false
 true
 4
 30
-bob@dylan:~$
+dell-latitude@nakatsinho:~$
 
 ```
 
@@ -222,7 +222,7 @@ Inside the folder `controllers`, create a file `AppController.js` that contai
 **Terminal 1:**
 
 ```
-bob@dylan:~$ npm run start-server
+dell-latitude@nakatsinho:~$ npm run start-server
 Server running on port 5000
 ...
 
@@ -231,12 +231,12 @@ Server running on port 5000
 **Terminal 2:**
 
 ```
-bob@dylan:~$ curl 0.0.0.0:5000/status ; echo ""
+dell-latitude@nakatsinho:~$ curl 0.0.0.0:5000/status ; echo ""
 {"redis":true,"db":true}
-bob@dylan:~$
-bob@dylan:~$ curl 0.0.0.0:5000/stats ; echo ""
+dell-latitude@nakatsinho:~$
+dell-latitude@nakatsinho:~$ curl 0.0.0.0:5000/stats ; echo ""
 {"users":4,"files":30}
-bob@dylan:~$
+dell-latitude@nakatsinho:~$
 
 ```
 
@@ -272,19 +272,19 @@ Inside `controllers`, add a file `UsersController.js` that contains the new e
     -   `password`: `SHA1` value of the value received
 
 ```
-bob@dylan:~$ curl 0.0.0.0:5000/users -XPOST -H "Content-Type: application/json" -d '{ "email": "bob@dylan.com", "password": "toto1234!" }' ; echo ""
-{"id":"5f1e7d35c7ba06511e683b21","email":"bob@dylan.com"}
-bob@dylan:~$
-bob@dylan:~$ echo 'db.users.find()' | mongo files_manager
-{ "_id" : ObjectId("5f1e7d35c7ba06511e683b21"), "email" : "bob@dylan.com", "password" : "89cad29e3ebc1035b29b1478a8e70854f25fa2b2" }
-bob@dylan:~$
-bob@dylan:~$
-bob@dylan:~$ curl 0.0.0.0:5000/users -XPOST -H "Content-Type: application/json" -d '{ "email": "bob@dylan.com", "password": "toto1234!" }' ; echo ""
+dell-latitude@nakatsinho:~$ curl 0.0.0.0:5000/users -XPOST -H "Content-Type: application/json" -d '{ "email": "dell-latitude@nakatsinho.com", "password": "toto1234!" }' ; echo ""
+{"id":"5f1e7d35c7ba06511e683b21","email":"dell-latitude@nakatsinho.com"}
+dell-latitude@nakatsinho:~$
+dell-latitude@nakatsinho:~$ echo 'db.users.find()' | mongo files_manager
+{ "_id" : ObjectId("5f1e7d35c7ba06511e683b21"), "email" : "dell-latitude@nakatsinho.com", "password" : "89cad29e3ebc1035b29b1478a8e70854f25fa2b2" }
+dell-latitude@nakatsinho:~$
+dell-latitude@nakatsinho:~$
+dell-latitude@nakatsinho:~$ curl 0.0.0.0:5000/users -XPOST -H "Content-Type: application/json" -d '{ "email": "dell-latitude@nakatsinho.com", "password": "toto1234!" }' ; echo ""
 {"error":"Already exist"}
-bob@dylan:~$
-bob@dylan:~$ curl 0.0.0.0:5000/users -XPOST -H "Content-Type: application/json" -d '{ "email": "bob@dylan.com" }' ; echo ""
+dell-latitude@nakatsinho:~$
+dell-latitude@nakatsinho:~$ curl 0.0.0.0:5000/users -XPOST -H "Content-Type: application/json" -d '{ "email": "dell-latitude@nakatsinho.com" }' ; echo ""
 {"error":"Missing password"}
-bob@dylan:~$
+dell-latitude@nakatsinho:~$
 
 ```
 
@@ -336,17 +336,17 @@ Inside the file `controllers/UsersController.js` add a new endpoint:
     -   Otherwise, return the user object (`email` and `id` only)
 
 ```
-bob@dylan:~$ curl 0.0.0.0:5000/connect -H "Authorization: Basic Ym9iQGR5bGFuLmNvbTp0b3RvMTIzNCE=" ; echo ""
+dell-latitude@nakatsinho:~$ curl 0.0.0.0:5000/connect -H "Authorization: Basic Ym9iQGR5bGFuLmNvbTp0b3RvMTIzNCE=" ; echo ""
 {"token":"031bffac-3edc-4e51-aaae-1c121317da8a"}
-bob@dylan:~$
-bob@dylan:~$ curl 0.0.0.0:5000/users/me -H "X-Token: 031bffac-3edc-4e51-aaae-1c121317da8a" ; echo ""
-{"id":"5f1e7cda04a394508232559d","email":"bob@dylan.com"}
-bob@dylan:~$
-bob@dylan:~$ curl 0.0.0.0:5000/disconnect -H "X-Token: 031bffac-3edc-4e51-aaae-1c121317da8a" ; echo ""
+dell-latitude@nakatsinho:~$
+dell-latitude@nakatsinho:~$ curl 0.0.0.0:5000/users/me -H "X-Token: 031bffac-3edc-4e51-aaae-1c121317da8a" ; echo ""
+{"id":"5f1e7cda04a394508232559d","email":"dell-latitude@nakatsinho.com"}
+dell-latitude@nakatsinho:~$
+dell-latitude@nakatsinho:~$ curl 0.0.0.0:5000/disconnect -H "X-Token: 031bffac-3edc-4e51-aaae-1c121317da8a" ; echo ""
 
-bob@dylan:~$ curl 0.0.0.0:5000/users/me -H "X-Token: 031bffac-3edc-4e51-aaae-1c121317da8a" ; echo ""
+dell-latitude@nakatsinho:~$ curl 0.0.0.0:5000/users/me -H "X-Token: 031bffac-3edc-4e51-aaae-1c121317da8a" ; echo ""
 {"error":"Unauthorized"}
-bob@dylan:~$
+dell-latitude@nakatsinho:~$
 
 ```
 
@@ -401,22 +401,22 @@ Inside `controllers`, add a file `FilesController.js` that contains the new e
     -   Return the new file with a status code 201
 
 ```
-bob@dylan:~$ curl 0.0.0.0:5000/connect -H "Authorization: Basic Ym9iQGR5bGFuLmNvbTp0b3RvMTIzNCE=" ; echo ""
+dell-latitude@nakatsinho:~$ curl 0.0.0.0:5000/connect -H "Authorization: Basic Ym9iQGR5bGFuLmNvbTp0b3RvMTIzNCE=" ; echo ""
 {"token":"f21fb953-16f9-46ed-8d9c-84c6450ec80f"}
-bob@dylan:~$
-bob@dylan:~$ curl -XPOST 0.0.0.0:5000/files -H "X-Token: f21fb953-16f9-46ed-8d9c-84c6450ec80f" -H "Content-Type: application/json" -d '{ "name": "myText.txt", "type": "file", "data": "SGVsbG8gV2Vic3RhY2shCg==" }' ; echo ""
+dell-latitude@nakatsinho:~$
+dell-latitude@nakatsinho:~$ curl -XPOST 0.0.0.0:5000/files -H "X-Token: f21fb953-16f9-46ed-8d9c-84c6450ec80f" -H "Content-Type: application/json" -d '{ "name": "myText.txt", "type": "file", "data": "SGVsbG8gV2Vic3RhY2shCg==" }' ; echo ""
 {"id":"5f1e879ec7ba06511e683b22","userId":"5f1e7cda04a394508232559d","name":"myText.txt","type":"file","isPublic":false,"parentId":0}
-bob@dylan:~$
-bob@dylan:~$ ls /tmp/files_manager/
+dell-latitude@nakatsinho:~$
+dell-latitude@nakatsinho:~$ ls /tmp/files_manager/
 2a1f4fc3-687b-491a-a3d2-5808a02942c9
-bob@dylan:~$
-bob@dylan:~$ cat /tmp/files_manager/2a1f4fc3-687b-491a-a3d2-5808a02942c9
+dell-latitude@nakatsinho:~$
+dell-latitude@nakatsinho:~$ cat /tmp/files_manager/2a1f4fc3-687b-491a-a3d2-5808a02942c9
 Hello Webstack!
-bob@dylan:~$
-bob@dylan:~$ curl -XPOST 0.0.0.0:5000/files -H "X-Token: f21fb953-16f9-46ed-8d9c-84c6450ec80f" -H "Content-Type: application/json" -d '{ "name": "images", "type": "folder" }' ; echo ""
+dell-latitude@nakatsinho:~$
+dell-latitude@nakatsinho:~$ curl -XPOST 0.0.0.0:5000/files -H "X-Token: f21fb953-16f9-46ed-8d9c-84c6450ec80f" -H "Content-Type: application/json" -d '{ "name": "images", "type": "folder" }' ; echo ""
 {"id":"5f1e881cc7ba06511e683b23","userId":"5f1e7cda04a394508232559d","name":"images","type":"folder","isPublic":false,"parentId":0}
-bob@dylan:~$
-bob@dylan:~$ cat image_upload.py
+dell-latitude@nakatsinho:~$
+dell-latitude@nakatsinho:~$ cat image_upload.py
 import base64
 import requests
 import sys
@@ -434,18 +434,18 @@ r_headers = { 'X-Token': sys.argv[2] }
 r = requests.post("http://0.0.0.0:5000/files", json=r_json, headers=r_headers)
 print(r.json())
 
-bob@dylan:~$
-bob@dylan:~$ python image_upload.py image.png f21fb953-16f9-46ed-8d9c-84c6450ec80f 5f1e881cc7ba06511e683b23
+dell-latitude@nakatsinho:~$
+dell-latitude@nakatsinho:~$ python image_upload.py image.png f21fb953-16f9-46ed-8d9c-84c6450ec80f 5f1e881cc7ba06511e683b23
 {'id': '5f1e8896c7ba06511e683b25', 'userId': '5f1e7cda04a394508232559d', 'name': 'image.png', 'type': 'image', 'isPublic': True, 'parentId': '5f1e881cc7ba06511e683b23'}
-bob@dylan:~$
-bob@dylan:~$ echo 'db.files.find()' | mongo files_manager
+dell-latitude@nakatsinho:~$
+dell-latitude@nakatsinho:~$ echo 'db.files.find()' | mongo files_manager
 { "_id" : ObjectId("5f1e881cc7ba06511e683b23"), "userId" : ObjectId("5f1e7cda04a394508232559d"), "name" : "images", "type" : "folder", "parentId" : "0" }
 { "_id" : ObjectId("5f1e879ec7ba06511e683b22"), "userId" : ObjectId("5f1e7cda04a394508232559d"), "name" : "myText.txt", "type" : "file", "parentId" : "0", "isPublic" : false, "localPath" : "/tmp/files_manager/2a1f4fc3-687b-491a-a3d2-5808a02942c9" }
 { "_id" : ObjectId("5f1e8896c7ba06511e683b25"), "userId" : ObjectId("5f1e7cda04a394508232559d"), "name" : "image.png", "type" : "image", "parentId" : ObjectId("5f1e881cc7ba06511e683b23"), "isPublic" : true, "localPath" : "/tmp/files_manager/51997b88-5c42-42c2-901e-e7f4e71bdc47" }
-bob@dylan:~$
-bob@dylan:~$ ls /tmp/files_manager/
+dell-latitude@nakatsinho:~$
+dell-latitude@nakatsinho:~$ ls /tmp/files_manager/
 2a1f4fc3-687b-491a-a3d2-5808a02942c9   51997b88-5c42-42c2-901e-e7f4e71bdc47
-bob@dylan:~$
+dell-latitude@nakatsinho:~$
 
 ```
 
@@ -488,18 +488,18 @@ In the file `controllers/FilesController.js`, add the 2 new endpoints:
         -   Pagination can be done directly by the `aggregate` of MongoDB
 
 ```
-bob@dylan:~$ curl 0.0.0.0:5000/connect -H "Authorization: Basic Ym9iQGR5bGFuLmNvbTp0b3RvMTIzNCE=" ; echo ""
+dell-latitude@nakatsinho:~$ curl 0.0.0.0:5000/connect -H "Authorization: Basic Ym9iQGR5bGFuLmNvbTp0b3RvMTIzNCE=" ; echo ""
 {"token":"f21fb953-16f9-46ed-8d9c-84c6450ec80f"}
-bob@dylan:~$
-bob@dylan:~$ curl -XGET 0.0.0.0:5000/files -H "X-Token: f21fb953-16f9-46ed-8d9c-84c6450ec80f" ; echo ""
+dell-latitude@nakatsinho:~$
+dell-latitude@nakatsinho:~$ curl -XGET 0.0.0.0:5000/files -H "X-Token: f21fb953-16f9-46ed-8d9c-84c6450ec80f" ; echo ""
 [{"id":"5f1e879ec7ba06511e683b22","userId":"5f1e7cda04a394508232559d","name":"myText.txt","type":"file","isPublic":false,"parentId":0},{"id":"5f1e881cc7ba06511e683b23","userId":"5f1e7cda04a394508232559d","name":"images","type":"folder","isPublic":false,"parentId":0},{"id":"5f1e8896c7ba06511e683b25","userId":"5f1e7cda04a394508232559d","name":"image.png","type":"image","isPublic":true,"parentId":"5f1e881cc7ba06511e683b23"}]
-bob@dylan:~$
-bob@dylan:~$ curl -XGET 0.0.0.0:5000/files?parentId=5f1e881cc7ba06511e683b23 -H "X-Token: f21fb953-16f9-46ed-8d9c-84c6450ec80f" ; echo ""
+dell-latitude@nakatsinho:~$
+dell-latitude@nakatsinho:~$ curl -XGET 0.0.0.0:5000/files?parentId=5f1e881cc7ba06511e683b23 -H "X-Token: f21fb953-16f9-46ed-8d9c-84c6450ec80f" ; echo ""
 [{"id":"5f1e8896c7ba06511e683b25","userId":"5f1e7cda04a394508232559d","name":"image.png","type":"image","isPublic":true,"parentId":"5f1e881cc7ba06511e683b23"}]
-bob@dylan:~$
-bob@dylan:~$ curl -XGET 0.0.0.0:5000/files/5f1e8896c7ba06511e683b25 -H "X-Token: f21fb953-16f9-46ed-8d9c-84c6450ec80f" ; echo ""
+dell-latitude@nakatsinho:~$
+dell-latitude@nakatsinho:~$ curl -XGET 0.0.0.0:5000/files/5f1e8896c7ba06511e683b25 -H "X-Token: f21fb953-16f9-46ed-8d9c-84c6450ec80f" ; echo ""
 {"id":"5f1e8896c7ba06511e683b25","userId":"5f1e7cda04a394508232559d","name":"image.png","type":"image","isPublic":true,"parentId":"5f1e881cc7ba06511e683b23"}
-bob@dylan:~$
+dell-latitude@nakatsinho:~$
 
 ```
 
@@ -540,18 +540,18 @@ In the file `controllers/FilesController.js`, add the 2 new endpoints:
     -   And return the file document with a status code 200
 
 ```
-bob@dylan:~$ curl 0.0.0.0:5000/connect -H "Authorization: Basic Ym9iQGR5bGFuLmNvbTp0b3RvMTIzNCE=" ; echo ""
+dell-latitude@nakatsinho:~$ curl 0.0.0.0:5000/connect -H "Authorization: Basic Ym9iQGR5bGFuLmNvbTp0b3RvMTIzNCE=" ; echo ""
 {"token":"f21fb953-16f9-46ed-8d9c-84c6450ec80f"}
-bob@dylan:~$
-bob@dylan:~$ curl -XGET 0.0.0.0:5000/files/5f1e8896c7ba06511e683b25 -H "X-Token: f21fb953-16f9-46ed-8d9c-84c6450ec80f" ; echo ""
+dell-latitude@nakatsinho:~$
+dell-latitude@nakatsinho:~$ curl -XGET 0.0.0.0:5000/files/5f1e8896c7ba06511e683b25 -H "X-Token: f21fb953-16f9-46ed-8d9c-84c6450ec80f" ; echo ""
 {"id":"5f1e8896c7ba06511e683b25","userId":"5f1e7cda04a394508232559d","name":"image.png","type":"image","isPublic":false,"parentId":"5f1e881cc7ba06511e683b23"}
-bob@dylan:~$
-bob@dylan:~$ curl -XPUT 0.0.0.0:5000/files/5f1e8896c7ba06511e683b25/publish -H "X-Token: f21fb953-16f9-46ed-8d9c-84c6450ec80f" ; echo ""
+dell-latitude@nakatsinho:~$
+dell-latitude@nakatsinho:~$ curl -XPUT 0.0.0.0:5000/files/5f1e8896c7ba06511e683b25/publish -H "X-Token: f21fb953-16f9-46ed-8d9c-84c6450ec80f" ; echo ""
 {"id":"5f1e8896c7ba06511e683b25","userId":"5f1e7cda04a394508232559d","name":"image.png","type":"image","isPublic":true,"parentId":"5f1e881cc7ba06511e683b23"}
-bob@dylan:~$
-bob@dylan:~$ curl -XPUT 0.0.0.0:5000/files/5f1e8896c7ba06511e683b25/unpublish -H "X-Token: f21fb953-16f9-46ed-8d9c-84c6450ec80f" ; echo ""
+dell-latitude@nakatsinho:~$
+dell-latitude@nakatsinho:~$ curl -XPUT 0.0.0.0:5000/files/5f1e8896c7ba06511e683b25/unpublish -H "X-Token: f21fb953-16f9-46ed-8d9c-84c6450ec80f" ; echo ""
 {"id":"5f1e8896c7ba06511e683b25","userId":"5f1e7cda04a394508232559d","name":"image.png","type":"image","isPublic":false,"parentId":"5f1e881cc7ba06511e683b23"}
-bob@dylan:~$
+dell-latitude@nakatsinho:~$
 
 ```
 
@@ -583,25 +583,25 @@ In the file `controllers/FilesController.js`, add the new endpoint:
     -   Return the content of the file with the correct MIME-type
 
 ```
-bob@dylan:~$ curl 0.0.0.0:5000/connect -H "Authorization: Basic Ym9iQGR5bGFuLmNvbTp0b3RvMTIzNCE=" ; echo ""
+dell-latitude@nakatsinho:~$ curl 0.0.0.0:5000/connect -H "Authorization: Basic Ym9iQGR5bGFuLmNvbTp0b3RvMTIzNCE=" ; echo ""
 {"token":"f21fb953-16f9-46ed-8d9c-84c6450ec80f"}
-bob@dylan:~$
-bob@dylan:~$ curl -XPUT 0.0.0.0:5000/files/5f1e879ec7ba06511e683b22/unpublish -H "X-Token: f21fb953-16f9-46ed-8d9c-84c6450ec80f" ; echo ""
+dell-latitude@nakatsinho:~$
+dell-latitude@nakatsinho:~$ curl -XPUT 0.0.0.0:5000/files/5f1e879ec7ba06511e683b22/unpublish -H "X-Token: f21fb953-16f9-46ed-8d9c-84c6450ec80f" ; echo ""
 {"id":"5f1e879ec7ba06511e683b22","userId":"5f1e7cda04a394508232559d","name":"myText.txt","type":"file","isPublic":false,"parentId":0}
-bob@dylan:~$
-bob@dylan:~$ curl -XGET 0.0.0.0:5000/files/5f1e879ec7ba06511e683b22/data -H "X-Token: f21fb953-16f9-46ed-8d9c-84c6450ec80f" ; echo ""
+dell-latitude@nakatsinho:~$
+dell-latitude@nakatsinho:~$ curl -XGET 0.0.0.0:5000/files/5f1e879ec7ba06511e683b22/data -H "X-Token: f21fb953-16f9-46ed-8d9c-84c6450ec80f" ; echo ""
 Hello Webstack!
 
-bob@dylan:~$ curl -XGET 0.0.0.0:5000/files/5f1e879ec7ba06511e683b22/data ; echo ""
+dell-latitude@nakatsinho:~$ curl -XGET 0.0.0.0:5000/files/5f1e879ec7ba06511e683b22/data ; echo ""
 {"error":"Not found"}
-bob@dylan:~$
-bob@dylan:~$ curl -XPUT 0.0.0.0:5000/files/5f1e879ec7ba06511e683b22/publish -H "X-Token: f21fb953-16f9-46ed-8d9c-84c6450ec80f" ; echo ""
+dell-latitude@nakatsinho:~$
+dell-latitude@nakatsinho:~$ curl -XPUT 0.0.0.0:5000/files/5f1e879ec7ba06511e683b22/publish -H "X-Token: f21fb953-16f9-46ed-8d9c-84c6450ec80f" ; echo ""
 {"id":"5f1e879ec7ba06511e683b22","userId":"5f1e7cda04a394508232559d","name":"myText.txt","type":"file","isPublic":true,"parentId":0}
-bob@dylan:~$
-bob@dylan:~$ curl -XGET 0.0.0.0:5000/files/5f1e879ec7ba06511e683b22/data ; echo ""
+dell-latitude@nakatsinho:~$
+dell-latitude@nakatsinho:~$ curl -XGET 0.0.0.0:5000/files/5f1e879ec7ba06511e683b22/data ; echo ""
 Hello Webstack!
 
-bob@dylan:~$
+dell-latitude@nakatsinho:~$
 
 ```
 
@@ -639,7 +639,7 @@ Update the endpoint `GET /files/:id/data` to accept a query parameter `size`:
 **Terminal 3:** (start the worker)
 
 ```
-bob@dylan:~$ npm run start-worker
+dell-latitude@nakatsinho:~$ npm run start-worker
 ...
 
 ```
@@ -647,23 +647,23 @@ bob@dylan:~$ npm run start-worker
 **Terminal 2:**
 
 ```
-bob@dylan:~$ curl 0.0.0.0:5000/connect -H "Authorization: Basic Ym9iQGR5bGFuLmNvbTp0b3RvMTIzNCE=" ; echo ""
+dell-latitude@nakatsinho:~$ curl 0.0.0.0:5000/connect -H "Authorization: Basic Ym9iQGR5bGFuLmNvbTp0b3RvMTIzNCE=" ; echo ""
 {"token":"f21fb953-16f9-46ed-8d9c-84c6450ec80f"}
-bob@dylan:~$
-bob@dylan:~$ python image_upload.py image.png f21fb953-16f9-46ed-8d9c-84c6450ec80f 5f1e881cc7ba06511e683b23
+dell-latitude@nakatsinho:~$
+dell-latitude@nakatsinho:~$ python image_upload.py image.png f21fb953-16f9-46ed-8d9c-84c6450ec80f 5f1e881cc7ba06511e683b23
 {'id': '5f1e8896c7ba06511e683b25', 'userId': '5f1e7cda04a394508232559d', 'name': 'image.png', 'type': 'image', 'isPublic': True, 'parentId': '5f1e881cc7ba06511e683b23'}
-bob@dylan:~$ ls /tmp/files_manager/
+dell-latitude@nakatsinho:~$ ls /tmp/files_manager/
 2a1f4fc3-687b-491a-a3d2-5808a02942c9   51997b88-5c42-42c2-901e-e7f4e71bdc47   6dc53397-8491-4b7c-8273-f748b1a031cb   6dc53397-8491-4b7c-8273-f748b1a031cb_100   6dc53397-8491-4b7c-8273-f748b1a031cb_250    6dc53397-8491-4b7c-8273-f748b1a031cb_500
-bob@dylan:~$
-bob@dylan:~$ curl -XGET 0.0.0.0:5000/files/5f1e8896c7ba06511e683b25/data -so new_image.png ; file new_image.png
+dell-latitude@nakatsinho:~$
+dell-latitude@nakatsinho:~$ curl -XGET 0.0.0.0:5000/files/5f1e8896c7ba06511e683b25/data -so new_image.png ; file new_image.png
 new_image.png: PNG image data, 471 x 512, 8-bit/color RGBA, non-interlaced
-bob@dylan:~$
-bob@dylan:~$ curl -XGET 0.0.0.0:5000/files/5f1e8896c7ba06511e683b25/data?size=100 -so new_image.png ; file new_image.png
+dell-latitude@nakatsinho:~$
+dell-latitude@nakatsinho:~$ curl -XGET 0.0.0.0:5000/files/5f1e8896c7ba06511e683b25/data?size=100 -so new_image.png ; file new_image.png
 new_image.png: PNG image data, 100 x 109, 8-bit/color RGBA, non-interlaced
-bob@dylan:~$
-bob@dylan:~$ curl -XGET 0.0.0.0:5000/files/5f1e8896c7ba06511e683b25/data?size=250 -so new_image.png ; file new_image.png
+dell-latitude@nakatsinho:~$
+dell-latitude@nakatsinho:~$ curl -XGET 0.0.0.0:5000/files/5f1e8896c7ba06511e683b25/data?size=250 -so new_image.png ; file new_image.png
 new_image.png: PNG image data, 250 x 272, 8-bit/color RGBA, non-interlaced
-bob@dylan:~$
+dell-latitude@nakatsinho:~$
 
 ```
 
